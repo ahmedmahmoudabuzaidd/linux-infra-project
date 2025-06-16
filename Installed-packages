@@ -1,0 +1,26 @@
+frontend-vm
+	nginx			Web server to serve index.html
+	openssh-server		Allow SSH access
+
+backend-vm
+	python3	Python	 	runtime for Flask
+	python3-pip		Install Python packages like Flask
+	flask (via pip)		Python web framework
+	gunicorn (via pip)	Production-ready Python WSGI server
+	nginx			Reverse proxy to the Flask app
+	openssh-server		Allow SSH access
+
+db-vm
+	mariadb-server		MySQL-compatible open-source database
+	git			To host and push project repo
+	openssh-server		Allow SSH access and scp file transfers
+
+
+
+
+
+
+
+
+
+
