@@ -24,11 +24,19 @@ CORS(app)
 
 # DB connection config
 db_config = {
-    'host': 'db-vm',     # IP of db-vm
+    'host': 'db-vm',   # DNS will resolve to DB VM IP
     'user': 'ahmed',
-    'password': 'ahmed',               # Empty by default for MariaDB
+    'password': 'ahmed',
     'database': 'myapp'
 }
+
+
+#db_config = {
+   # 'host': 'db-vm',     # IP of db-vm
+  #  'user': 'ahmed',
+ #   'password': 'ahmed',               # Empty by default for MariaDB
+#    'database': 'myapp'
+#}
 
 @app.route('/status')
 def status():
@@ -49,4 +57,3 @@ def get_users():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
