@@ -45,35 +45,34 @@
   <button onclick="loadUsers()">Load Users</button>
 
   <div id="users"></div>
-
   <script>
-    function loadUsers() {
-      fetch('http://192.168.56.102/users')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          const usersDiv = document.getElementById('users');
-          usersDiv.innerHTML = '<h2>Users:</h2>';
-          data.forEach(user => {
-            usersDiv.innerHTML += `
-              <div class="user">
-                <strong>Name:</strong> ${user.name} <br>
-                <strong>Email:</strong> ${user.email} <br>
-                <strong>Created:</strong> ${user.created_at}
-              </div>
-            `;
-          });
-        })
-        .catch(error => {
-          document.getElementById('users').innerHTML =
-            `<p style="color:red;">Error: ${error.message}</p>`;
+  function loadUsers() {
+    fetch('/api/users')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const usersDiv = document.getElementById('users');
+        usersDiv.innerHTML = '<h2>Users:</h2>';
+        data.forEach(user => {
+          usersDiv.innerHTML += `
+            <div class="user">
+              <strong>Name:</strong> ${user.name} <br>
+              <strong>Email:</strong> ${user.email} <br>
+              <strong>Created:</strong> ${user.created_at}
+            </div>
+          `;
         });
-    }
-  </script>
+      })
+      .catch(error => {
+        document.getElementById('users').innerHTML =
+          `<p style="color:red;">Error: ${error.message}</p>`;
+      });
+  }
+</script>
 </body>
 </html>
 
