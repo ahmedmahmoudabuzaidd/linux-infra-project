@@ -24,7 +24,7 @@ CORS(app)
 
 # DB connection config
 db_config = {
-    'host': '192.168.56.103',     # IP of db-vm
+    'host': 'db-vm',     # IP of db-vm
     'user': 'ahmed',
     'password': 'ahmed',               # Empty by default for MariaDB
     'database': 'myapp'
