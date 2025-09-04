@@ -1,42 +1,18 @@
-# ~/backend_project/app.py
-#from flask import Flask, jsonify
-
-#app = Flask(__name__)
-
-#@app.route('/status')
-#def status():
-#    return jsonify({"status": "Backend is running", "author": "Ahmed Abuzaid"})
-
-#@app.route('/db')
-#def db_check():
-#    return jsonify({"db_status": "Not connected yet"})  # Will integrate later
-
-#if __name__ == '__main__':
- #   app.run(host='0.0.0.0', port=5000)
-
-from flask_cors import CORS
 from flask import Flask, jsonify
+from flask_cors import CORS
 import mysql.connector
 
 app = Flask(__name__)
 CORS(app)
 
-
 # DB connection config
 db_config = {
-    'host': 'db-vm',   # DNS will resolve to DB VM IP
+    'host': 'db-vm',       # DNS name of DB VM
     'user': 'ahmed',
     'password': 'ahmed',
-    'database': 'myapp'
+    'database': 'myapp',
+    'port': 3306
 }
-
-
-#db_config = {
-   # 'host': 'db-vm',     # IP of db-vm
-  #  'user': 'ahmed',
- #   'password': 'ahmed',               # Empty by default for MariaDB
-#    'database': 'myapp'
-#}
 
 @app.route('/status')
 def status():
@@ -48,7 +24,7 @@ def get_users():
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM users")
-        users = cursor.fetchall()
+        users = cursor.fetchall()  # list of dicts
         cursor.close()
         conn.close()
         return jsonify(users)
@@ -56,4 +32,5 @@ def get_users():
         return jsonify({"error": str(e)})
 
 if __name__ == '__main__':
+    # Flask listens on all interfaces
     app.run(host='0.0.0.0', port=5000)
