@@ -13,6 +13,7 @@ DB VM → MariaDB/MySQL with dedicated user, secured configuration.
 Zabbix VM → monitoring setup (in progress).
 
 ✅ Best Practices Applied
+
 🔹 Database VM (db-vm)
 
 Runs MariaDB/MySQL.
