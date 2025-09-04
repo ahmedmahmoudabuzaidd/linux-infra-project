@@ -1,3 +1,4 @@
+Update nginx config under /etc/nginx/sites-available/backend
 server {
     listen 80;
     server_name backend-vm;
@@ -10,3 +11,13 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
+
+====================================================================
+Enable site and restart Nginx 
+sudo ln -s /etc/nginx/sites-available/backend /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+=====================================================================
+Test backend
+curl http://backend-vm/status
+curl http://backend-vm/users
