@@ -1,3 +1,24 @@
 sudo apt update
 sudo apt install nginx python3-pip python3-venv -y
 sudo pip3 install flask mysql-connector-python flask-cors gunicorn
+==========================================================================
+Prepare project environment
+cd ~/backend_project
+python3 -m venv venv
+source venv/bin/activate
+pip install flask mysql-connector-python flask-cors gunicorn
+==========================================================================
+Create systemd service for Gunicorn under /etc/systemd/system/backend.service
+[Unit]
+Description=Gunicorn instance to serve backend Flask app
+After=network.target
+
+[Service]
+User=ahmed
+Group=www-data
+WorkingDirectory=/home/ahmed/backend_project
+Environment="PATH=/home/ahmed/backend_project/venv/bin"
+ExecStart=/home/ahmed/backend_project/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:5000 app:app
+
+[Install]
+WantedBy=multi-user.target
