@@ -21,21 +21,22 @@
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
+
     root /home/ahmed/frontend_project;
     index index.html;
-    server_name _;
+    server_name frontend-vm;
 
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Proxy /api/ to backend
     location /api/ {
         proxy_pass http://backend-vm:5000/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
 }
-
 
 
 #server {
