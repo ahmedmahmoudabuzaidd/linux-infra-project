@@ -21,3 +21,10 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
+===================================================================================
+Enable site and restart nginx 
+sudo ln -s /etc/nginx/sites-available/frontend /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+===================================================================================
+Test from the web browser 
