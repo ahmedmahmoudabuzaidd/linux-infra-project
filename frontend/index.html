@@ -3,39 +3,12 @@
 <head>
   <title>Welcome to My App</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      text-align: center;
-      margin-top: 50px;
-    }
-    h1 {
-      color: #2d89ef;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #2d89ef;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #1b5fad;
-    }
-    #users {
-      margin-top: 30px;
-      text-align: left;
-      display: inline-block;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .user {
-      margin-bottom: 10px;
-    }
+    body { font-family: Arial; background: #f5f5f5; text-align: center; margin-top:50px;}
+    h1 { color: #2d89ef; }
+    button { padding:10px 20px; font-size:16px; cursor:pointer; background:#2d89ef; color:white; border:none; border-radius:5px;}
+    button:hover { background:#1b5fad; }
+    #users { margin-top:30px; text-align:left; display:inline-block; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+    .user { margin-bottom:10px; }
   </style>
 </head>
 <body>
@@ -45,34 +18,42 @@
   <button onclick="loadUsers()">Load Users</button>
 
   <div id="users"></div>
+
   <script>
-  function loadUsers() {
-    fetch('/api/users')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const usersDiv = document.getElementById('users');
-        usersDiv.innerHTML = '<h2>Users:</h2>';
-        data.forEach(user => {
-          usersDiv.innerHTML += `
-            <div class="user">
-              <strong>Name:</strong> ${user.name} <br>
-              <strong>Email:</strong> ${user.email} <br>
-              <strong>Created:</strong> ${user.created_at}
-            </div>
-          `;
+    function loadUsers() {
+      fetch('/api/users')  // Nginx proxies this to backend-vm:5000/users
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const usersDiv = document.getElementById('users');
+
+          if (!Array.isArray(data)) {
+            // handle error object from backend
+            usersDiv.innerHTML = `<p style="color:red;">Error: ${data.error || "Unexpected response"}</p>`;
+            console.error(data);
+            return;
+          }
+
+          usersDiv.innerHTML = '<h2>Users:</h2>';
+          data.forEach(user => {
+            usersDiv.innerHTML += `
+              <div class="user">
+                <strong>Name:</strong> ${user.name} <br>
+                <strong>Email:</strong> ${user.email} <br>
+                <strong>Created:</strong> ${user.created_at}
+              </div>
+            `;
+          });
+        })
+        .catch(error => {
+          document.getElementById('users').innerHTML =
+            `<p style="color:red;">Error: ${error.message}</p>`;
         });
-      })
-      .catch(error => {
-        document.getElementById('users').innerHTML =
-          `<p style="color:red;">Error: ${error.message}</p>`;
-      });
-  }
-</script>
+    }
+  </script>
 </body>
 </html>
-
