@@ -16,3 +16,8 @@ INSERT INTO users (name, email) VALUES
 CREATE USER 'ahmed'@'%' IDENTIFIED BY 'ahmed';
 GRANT ALL PRIVILEGES ON myapp.* TO 'ahmed'@'%';
 FLUSH PRIVILEGES;
+======================================================================================================================
+Allow traffic from the backend VM to DB Add a rule in UFW 
+sudo ufw allow from <backend-vm-ip> to any port 3306
+sudo ufw enable
+sudo ufw status
