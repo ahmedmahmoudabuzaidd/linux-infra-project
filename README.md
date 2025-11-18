@@ -63,4 +63,9 @@ End-to-end Linux infrastructure project with **5 VMs**:
 ---
 
 ## 📁 Project Structure
-
+├─ frontend/
+├─ backend/
+├─ database/
+├─ backup/
+├─ zabbix/
+└─ Guidebook (Step-by-Step Manual).pdf
