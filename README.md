@@ -1,15 +1,16 @@
-![Linux Infrastructure Banner](https://servisistemas.com.co/servicios-para-redes-computadores/wp-content/uploads/2023/09/multisesion_maximo_con_SSH.jpg)
+version 2 
+![Linux Infrastructure Banner](https://as2.ftcdn.net/v2/jpg/03/96/98/33/1000_F_396983381_AcuGFHQbNn7d9eercXFpOecN7d7B5F66.jpg)
 
 # Linux Infrastructure Project 🐧💻
 
 **Host Python App:** Frontend → Backend → Database → Monitoring (Zabbix)
 
-End-to-end Linux infrastructure project with **4 VMs**:
+End-to-end Linux infrastructure project with **5 VMs**:
 
 - **Frontend VM** → Frontend code + Nginx (serves static + proxies API)  
 - **Backend VM** → Backend code + Gunicorn + Nginx  
 - **DB VM** → MariaDB/MySQL with dedicated user, secured configuration  
-- **Zabbix VM** → Complete monitoring setup  
+- **Zabbix VM** → Complete monitoring setup    
 
 ---
 
@@ -63,6 +64,8 @@ End-to-end Linux infrastructure project with **4 VMs**:
 
 - Full monitoring setup included in `zabbix/` folder  
 - Monitors CPU, RAM, Disk, Nginx, Gunicorn, DB, and network  
+- Animated GIF for live monitoring dashboard:
+
 
 </details>
 
@@ -100,3 +103,4 @@ End-to-end Linux infrastructure project with **4 VMs**:
 ├─ zabbix/
 
 └─ Guidebook (Step-by-Step Manual).pdf
+
