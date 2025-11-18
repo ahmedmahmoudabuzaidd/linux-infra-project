@@ -1,4 +1,4 @@
-![Linux Infrastructure Banner](https://servisistemas.com.co/servicios-para-redes-computadores/wp-content/uploads/2023/09/multisesion_maximo_con_SSH.jpg)
+![Linux Infrastructure Banner](./linux-infra-project.PNG)
 
 # Linux Infrastructure Project 🐧💻
 
