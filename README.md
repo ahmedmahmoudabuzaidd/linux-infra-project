@@ -1,69 +1,66 @@
-# linux-infra-project
+![Linux Infrastructure Banner](https://as2.ftcdn.net/v2/jpg/03/96/98/33/1000_F_396983381_AcuGFHQbNn7d9eercXFpOecN7d7B5F66.jpg)
 
-Host Python App: Frontend - Backend - DB - Monitoring
+# Linux Infrastructure Project 🖥️🐧
 
-End-to-end Linux infrastructure project with 4 VMs:
+**Host Python App:** Frontend → Backend → DB → Monitoring (Zabbix)
 
-Frontend VM → frontend code + Nginx (serves static + proxies API).
+End-to-end Linux infrastructure project with **5 VMs**:
 
-Backend VM → backend code + Gunicorn + Nginx.
+- **Frontend VM** → Frontend code + Nginx (serves static + proxies API)  
+- **Backend VM** → Backend code + Gunicorn + Nginx  
+- **DB VM** → MariaDB/MySQL with dedicated user, secured configuration  
+- **Zabbix VM** → Full monitoring setup (Zabbix folder included)  
+- **Backup VM** → Data backup scripts and automation  
 
-DB VM → MariaDB/MySQL with dedicated user, secured configuration.
+---
 
-Zabbix VM → monitoring setup (in progress).
+## ✅ Best Practices Applied
 
-✅ Best Practices Applied
+### Database VM (`db-vm`)
+- Runs MariaDB/MySQL with dedicated DB user (no root for apps)  
+- Firewall restricts access to backend VM only  
+- `bind-address=0.0.0.0` for controlled external access  
 
-🔹 Database VM (db-vm)
+### Backend VM (`backend-vm`)
+- Flask app via Gunicorn (multi-worker)  
+- Managed by systemd for reliability  
+- Nginx reverse proxy in front of Gunicorn  
+- Firewall allows only frontend VM traffic  
+- Uses DNS names (no hardcoded IPs)  
 
-Runs MariaDB/MySQL.
+### Frontend VM (`frontend-vm`)
+- Nginx serves static files (HTML, JS, CSS)  
+- Proxies API requests (`/api/`) to backend VM  
+- Clean JS code (no hardcoded backend IPs)  
 
-Uses a dedicated database user (no root for apps).
+### Networking
+- DNS names for all VMs (`frontend-vm`, `backend-vm`, `db-vm`, `zabbix-vm`)  
+- UFW firewall rules per role (minimum exposure)  
+- Tested DNS resolution between VMs  
 
-Firewall restricts access (only backend VM can connect).
+### Zabbix VM (`zabbix-vm`)
+- Complete Zabbix setup included in `zabbix/` folder  
+- Monitors CPU, RAM, Disk, Nginx, Gunicorn, DB, and network health  
 
-bind-address = 0.0.0.0 for controlled external access.
+### Production Readiness
+- Logs collected from Nginx, Gunicorn, MySQL  
+- Proper multi-layer separation: Frontend → Backend → DB  
+- No direct DB access from frontend  
+- Least privilege configuration everywhere  
 
-🔹 Backend VM (backend-vm)
+⚡ **Project Status:** Frontend, Backend, DB, and Zabbix monitoring fully implemented
 
-Runs Flask app via Gunicorn (multi-worker).
+---
 
-Managed with systemd service for reliability.
+## 🛠️ Tech Stack & Tools
 
-Nginx reverse proxy in front of Gunicorn.
+- **Web & App:** Nginx, Flask, Gunicorn  
+- **Database:** MariaDB/MySQL  
+- **Monitoring:** Zabbix (complete folder included)  
+- **Automation & Networking:** Linux CLI, Bash scripts, DNS setup, UFW firewall  
+- **Programming:** Python, HTML, CSS, JS  
 
-Firewall allows only frontend VM traffic.
+---
 
-Uses DNS names (no hardcoded IPs).
+## 📁 Project Structure
 
-🔹 Frontend VM (frontend-vm)
-
-Nginx serves static files (HTML, JS, CSS).
-
-Proxies API requests (/api/) to backend VM.
-
-Uses DNS names for backend connection.
-
-JavaScript code cleaned (no hardcoded backend IP).
-
-🔹 Networking
-
-All VMs use DNS names (frontend-vm, backend-vm, db-vm, zabbix-vm).
-
-UFW firewall rules per role (minimum exposure).
-
-Tested DNS resolution between VMs.
-
-🔹 Production Readiness
-
-Logs collected from Nginx, Gunicorn, MySQL.
-
-Proper multi-layer separation:
-
-Frontend → Backend → DB.
-
-No direct DB access from frontend.
-
-Secure least privilege configuration everywhere.
-
-⚡ Project Status: Frontend, Backend, DB setup working. Zabbix monitoring setup in progress.
